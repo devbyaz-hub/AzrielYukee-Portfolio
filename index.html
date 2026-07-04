@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Azriel Jon Yukee · Portfolio</title>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ---- base & reset (same as original) ---- */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --bg: #080809; --surface: #101012; --border: #1e1e22;
+      --text: #f0ece3; --muted: #555; --accent: #e8ff47;
+      --accent-dim: rgba(232,255,71,0.08);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: 'Inter', sans-serif; overflow-x: hidden;
+    }
+    /* nav, ticker, hero, projects, skills, contact, footer — same as original */
+    nav {
+      position: fixed; top:0; left:0; right:0; z-index:200;
+      padding:16px 40px; display:flex; justify-content:space-between;
+      align-items:center; background:rgba(8,8,9,0.85); backdrop-filter:blur(16px);
+      border-bottom:1px solid var(--border);
+    }
+    .nav-logo { font-family:'Syne',sans-serif; font-weight:800; font-size:16px; letter-spacing:-0.02em; }
+    .nav-logo span { color:var(--accent); }
+    .nav-links { display:flex; gap:4px; }
+    .nav-links a { color:var(--muted); font-size:13px; font-weight:500; text-decoration:none; padding:6px 14px; border-radius:100px; transition:all .2s; }
+    .nav-links a:hover { color:var(--text); }
+    .nav-links a.active { color:var(--bg); background:var(--accent); }
+    .ticker-wrap { background:var(--accent); overflow:hidden; white-space:nowrap; padding:10px 0; margin-top:56px; }
+    .ticker-inner { display:inline-flex; animation:ticker 28s linear infinite; }
+    .ticker-inner:hover { animation-play-state:paused; }
+    .ticker-item { font-family:'Syne',sans-serif; font-weight:700; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--bg); padding:0 32px; }
+    .ticker-sep { color:rgba(8,8,9,0.35); font-size:10px; }
+    @keyframes ticker { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
+    .hero { min-height:100vh; padding:100px 40px 60px; display:grid; grid-template-columns:1fr 420px; gap:40px; align-items:center; }
+    .hero-tag { display:inline-flex; align-items:center; gap:8px; border:1px solid var(--border); border-radius:100px; padding:6px 14px; margin-bottom:28px; }
+    .hero-tag-dot { width:7px; height:7px; border-radius:50%; background:#22c55e; animation:blink 2s infinite; }
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.3;} }
+    .hero-tag-text { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); letter-spacing:.05em; }
+    .hero-name { font-family:'Syne',sans-serif; font-weight:800; font-size:76px; line-height:.92; letter-spacing:-.04em; margin-bottom:24px; }
+    .hero-name .accent { color:var(--accent); }
+    .hero-name .outline { -webkit-text-stroke:1px var(--text); color:transparent; }
+    .hero-desc { font-size:15px; color:#888; line-height:1.75; max-width:480px; margin-bottom:36px; }
+    .hero-desc strong { color:var(--text); font-weight:500; }
+    .hero-btns { display:flex; gap:12px; margin-bottom:48px; flex-wrap:wrap; }
+    .btn-main { background:var(--accent); color:var(--bg); border:none; padding:13px 26px; border-radius:12px; font-family:'Syne',sans-serif; font-weight:700; font-size:14px; cursor:pointer; transition:all .2s; display:flex; align-items:center; gap:8px; }
+    .btn-main:hover { background:#f5ff80; transform:translateY(-2px); }
+    .btn-out { background:transparent; color:var(--text); border:1px solid var(--border); padding:13px 26px; border-radius:12px; font-family:'Inter',sans-serif; font-weight:500; font-size:14px; cursor:pointer; transition:all .2s; }
+    .btn-out:hover { border-color:var(--accent); color:var(--accent); }
+    .hero-socials { display:flex; gap:10px; flex-wrap:wrap; }
+    .social-btn { width:40px; height:40px; border-radius:10px; border:1px solid var(--border); background:var(--surface); display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:17px; text-decoration:none; transition:all .2s; cursor:pointer; }
+    .social-btn:hover { border-color:var(--accent); color:var(--accent); }
+    .hero-right { display:flex; flex-direction:column; gap:16px; }
+    .avatar-card { background:var(--surface); border:1px solid var(--border); border-radius:24px; padding:28px; display:flex; flex-direction:column; align-items:center; gap:16px; position:relative; overflow:hidden; }
+    .avatar-card::before { content:''; position:absolute; top:-60px; right:-60px; width:180px; height:180px; background:var(--accent); opacity:.06; border-radius:50%; }
+    .avatar-circle { width:120px; height:120px; border-radius:50%; background:linear-gradient(135deg,#1a1a1e,#252528); border:2px solid var(--accent); display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-weight:800; font-size:36px; color:var(--accent); }
+    .avatar-name { font-family:'Syne',sans-serif; font-weight:700; font-size:18px; text-align:center; }
+    .avatar-role { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); text-align:center; letter-spacing:.05em; margin-top:4px; }
+    section { padding:80px 40px; }
+    .sec-eyebrow { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--accent); letter-spacing:.2em; text-transform:uppercase; margin-bottom:12px; }
+    .sec-heading { font-family:'Syne',sans-serif; font-weight:800; font-size:48px; letter-spacing:-.03em; margin-bottom:8px; }
+    .sec-sub { font-size:14px; color:var(--muted); margin-bottom:48px; max-width:480px; }
+    #projects { background:var(--bg); }
+    .proj-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+    .proj-card { background:var(--surface); border:1px solid var(--border); border-radius:20px; overflow:hidden; cursor:default; transition:all .25s; position:relative; display:flex; flex-direction:column; }
+    .proj-card:hover { border-color:var(--accent); transform:translateY(-4px); }
+    .proj-card:hover .proj-arrow { opacity:1; transform:translate(0,0); }
+    .proj-thumb { height:200px; display:flex; align-items:center; justify-content:center; border-bottom:1px solid var(--border); position:relative; overflow:hidden; flex-shrink:0; background:var(--surface); }
+    .proj-image { width:100%; height:100%; object-fit:cover; display:block; transition:transform .3s ease; }
+    .proj-card:hover .proj-image { transform:scale(1.02); }
+    .proj-tag { position:absolute; top:12px; left:12px; background:var(--accent); color:var(--bg); border-radius:6px; padding:3px 10px; font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:500; z-index:2; }
+    .proj-body { padding:18px; flex:1; }
+    .proj-name { font-family:'Syne',sans-serif; font-weight:700; font-size:16px; margin-bottom:4px; }
+    .proj-stack { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); }
+    .proj-arrow {
+      position:absolute; bottom:16px; right:16px; width:34px; height:34px;
+      border-radius:50%; background:var(--accent); display:flex; align-items:center;
+      justify-content:center; color:var(--bg); font-size:16px; opacity:0;
+      transform:translate(4px,4px); transition:all .2s; z-index:5;
+      cursor:pointer; border:none; box-shadow:0 4px 12px rgba(0,0,0,0.4);
+    }
+    .proj-arrow:hover { transform:scale(1.08) translate(0,0); background:#f5ff80; }
+    #skills { background:#0b0b0d; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .skills-layout { display:grid; grid-template-columns:280px 1fr; gap:48px; align-items:start; }
+    .skills-blurb { font-size:14px; color:#777; line-height:1.8; }
+    .skills-right { display:flex; flex-direction:column; gap:28px; }
+    .sk-group-title { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--muted); letter-spacing:.2em; text-transform:uppercase; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid var(--border); }
+    .sk-tags { display:flex; flex-wrap:wrap; gap:8px; }
+    .sk-tag { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:8px 14px; font-size:13px; color:#ccc; font-weight:500; transition:all .2s; }
+    .sk-tag:hover { border-color:var(--accent); color:var(--accent); background:var(--accent-dim); }
+    .sk-tag.hi { border-color:rgba(232,255,71,0.3); color:var(--accent); background:var(--accent-dim); }
+    #contact { background:var(--bg); }
+    .contact-split { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; }
+    .contact-lede { font-family:'Syne',sans-serif; font-weight:800; font-size:36px; letter-spacing:-.03em; line-height:1.15; margin-bottom:16px; }
+    .contact-lede .accent { color:var(--accent); }
+    .contact-sub { font-size:14px; color:#777; line-height:1.75; margin-bottom:32px; }
+    .contact-detail { display:flex; flex-direction:column; gap:0; }
+    .contact-row { display:flex; align-items:center; gap:12px; padding:14px 0; border-bottom:1px solid var(--border); text-decoration:none; color:#aaa; font-size:13px; transition:color .2s; }
+    .contact-row:hover { color:var(--accent); }
+    .contact-row-icon { width:34px; height:34px; border-radius:8px; background:var(--surface); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; color:var(--accent); font-size:15px; flex-shrink:0; }
+    footer { background:#040405; border-top:1px solid var(--border); padding:24px 40px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+    .foot-left { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); }
+    .foot-right { font-family:'Syne',sans-serif; font-weight:700; font-size:13px; color:var(--accent); }
+    .reveal { opacity:0; transform:translateY(24px); transition:opacity .5s ease, transform .5s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    ::-webkit-scrollbar { width:4px; }
+    ::-webkit-scrollbar-track { background:var(--bg); }
+    ::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
+    ::-webkit-scrollbar-thumb:hover { background:var(--accent); }
+    @media (max-width:1024px) { .hero { grid-template-columns:1fr 340px; gap:30px; } .hero-name { font-size:60px; } .skills-layout { grid-template-columns:1fr; gap:30px; } .contact-split { grid-template-columns:1fr; gap:40px; } }
+    @media (max-width:768px) { nav { padding:12px 20px; } .nav-links a { font-size:12px; padding:5px 10px; } .hero { grid-template-columns:1fr; padding:60px 20px 40px; gap:30px; } .hero-name { font-size:48px; } .hero-desc { max-width:100%; } .hero-right { max-width:420px; margin:0 auto; width:100%; } section { padding:50px 20px; } .sec-heading { font-size:36px; } .proj-grid { grid-template-columns:1fr 1fr; gap:14px; } .skills-layout { grid-template-columns:1fr; gap:24px; } .contact-split { grid-template-columns:1fr; gap:32px; } .contact-lede { font-size:28px; } footer { padding:16px 20px; flex-direction:column; text-align:center; } }
+    @media (max-width:480px) { nav { padding:10px 14px; flex-wrap:wrap; gap:8px; justify-content:center; } .nav-logo { font-size:14px; } .nav-links a { font-size:10px; padding:4px 8px; } .hero { padding:40px 14px 30px; } .hero-name { font-size:32px; line-height:1; } .hero-tag { padding:4px 10px; } .hero-desc { font-size:13px; } .hero-btns { flex-direction:column; width:100%; } .hero-btns .btn-main, .hero-btns .btn-out { width:100%; justify-content:center; font-size:13px; padding:11px 20px; } .hero-socials { justify-content:center; } .avatar-card { padding:20px; } .avatar-circle { width:80px; height:80px; font-size:24px; } .avatar-name { font-size:16px; } section { padding:30px 14px; } .sec-heading { font-size:28px; } .sec-sub { font-size:12px; margin-bottom:28px; } .proj-grid { grid-template-columns:1fr; gap:14px; } .proj-thumb { height:140px; } .proj-body { padding:14px; } .proj-name { font-size:14px; } .proj-stack { font-size:10px; } .skills-layout { gap:16px; } .sk-tag { font-size:11px; padding:6px 10px; } .contact-lede { font-size:24px; } .contact-row { font-size:12px; padding:10px 0; } .contact-row-icon { width:28px; height:28px; font-size:12px; } footer { padding:12px 14px; flex-direction:column; text-align:center; gap:6px; } .ticker-wrap { padding:6px 0; } .ticker-item { font-size:10px; padding:0 16px; } .ticker-sep { font-size:8px; } }
+
+    /* ---------- MODAL STYLES ---------- */
+    .modal-overlay {
+      position: fixed; inset:0; z-index:9999;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center; justify-content: center;
+      padding: 24px;
+      opacity:0; transition: opacity 0.3s ease;
+    }
+    .modal-overlay.active { display:flex; opacity:1; }
+    .modal-container {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      max-width: 820px;
+      width: 100%;
+      max-height: 92vh;
+      overflow-y: auto;
+      padding: 32px 36px 40px;
+      position: relative;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.8);
+      transform: scale(0.96) translateY(12px);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      opacity:0;
+    }
+    .modal-overlay.active .modal-container { transform:scale(1) translateY(0); opacity:1; }
+    .modal-close {
+      position: sticky; top:0; float:right;
+      background: var(--border); border:none;
+      width: 40px; height: 40px; border-radius: 40px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; color: var(--muted); cursor:pointer;
+      transition: all 0.2s; z-index:10; margin-bottom: 8px;
+      font-family: 'Inter', sans-serif;
+    }
+    .modal-close:hover { background: var(--accent); color: var(--bg); }
+    .modal-title {
+      font-family: 'Syne', sans-serif; font-weight:800;
+      font-size: 28px; letter-spacing:-0.02em;
+      margin-bottom: 16px; color: var(--text);
+      padding-right: 40px;
+    }
+    .modal-section { margin-bottom: 24px; }
+    .modal-section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--accent);
+      margin-bottom: 8px; border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+    }
+    .modal-text { font-size: 14px; line-height: 1.7; color: #c8c4bb; }
+    .modal-text strong { color: var(--text); font-weight:500; }
+    .modal-tech { display:flex; flex-wrap:wrap; gap:6px 10px; margin-top:6px; }
+    .modal-tech-item {
+      background: var(--bg); border:1px solid var(--border);
+      border-radius:30px; padding:4px 14px;
+      font-size:12px; color:#aaa; font-family:'JetBrains Mono',monospace;
+      letter-spacing:0.02em;
+    }
+    .modal-tech-item.highlight { border-color:var(--accent); color:var(--accent); background:var(--accent-dim); }
+
+    /* screenshot image inside modal */
+    .modal-screenshot {
+      margin-top: 8px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .modal-screenshot img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.2s;
+    }
+    .modal-screenshot img:hover { transform: scale(1.01); }
+
+    .modal-container::-webkit-scrollbar { width: 4px; }
+    .modal-container::-webkit-scrollbar-track { background: var(--surface); }
+    .modal-container::-webkit-scrollbar-thumb { background: var(--border); border-radius:2px; }
+
+    @media (max-width: 600px) {
+      .modal-container { padding: 20px 18px 28px; margin:12px; max-height:95vh; }
+      .modal-title { font-size:22px; padding-right:20px; }
+      .modal-text { font-size:13px; }
+      .modal-close { width:34px; height:34px; font-size:18px; }
+    }
+    @media (max-width: 400px) {
+      .modal-container { padding: 16px 14px 20px; }
+      .modal-title { font-size:18px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">AZ<span>.</span></div>
+    <div class="nav-links">
+      <a href="#hero" >Home</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- TICKER -->
+  <div class="ticker-wrap">
+    <div class="ticker-inner">
+      <span class="ticker-item">PHP · Laravel</span><span class="ticker-sep">✦</span>
+      <span class="ticker-item">MySQL · phpMyAdmin</span><span class="ticker-sep">✦</span>
+      <span class="ticker-item">QR Systems</span><span class="ticker-sep">✦</span>
+      <span class="ticker-item">JavaScript</span><span class="ticker-sep">✦</span>
+      <span class="ticker-item">Python · ML</span><span class="ticker-sep">✦</span>
+      <span class="ticker-item">Web Development</span><span class="ticker-sep">✦</span>
+      <span class="ticker-item">Bootstrap · CSS</span><span class="ticker-sep">✦</span>
+      <span class="ticker-item">Google OAuth</span><span class="ticker-sep">✦</span>
+      <span class="ticker-item">Freelancer · La Union</span><span class="ticker-sep">✦</span>
+      <span class="ticker-item">PHP · Laravel</span><span class="ticker-sep">✦</span>
+      <span class="ticker-item">MySQL · phpMyAdmin</span><span class="ticker-sep">✦</span>
+      <span class="ticker-item">QR Systems</span><span class="ticker-sep">✦</span>
+      <span class="ticker-item">JavaScript</span><span class="ticker-sep">✦</span>
+      <span class="ticker-item">Python · ML</span><span class="ticker-sep">✦</span>
+      <span class="ticker-item">Web Development</span><span class="ticker-sep">✦</span>
+      <span class="ticker-item">Bootstrap · CSS</span><span class="ticker-sep">✦</span>
+      <span class="ticker-item">Google OAuth</span><span class="ticker-sep">✦</span>
+      <span class="ticker-item">Freelancer · La Union</span><span class="ticker-sep">✦</span>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero" style="padding-top:60px;padding-bottom:80px;">
+    <div class="hero" style="min-height:unset;padding:0;">
+      <div>
+        <div class="hero-tag"><div class="hero-tag-dot"></div><span class="hero-tag-text">Open to freelance & full-time</span></div>
+        <h1 class="hero-name"><span class="outline">Azriel</span><br><span class="accent">Jon</span><br>Yukee</h1>
+        <p class="hero-desc">I help <strong>businesses, schools, and organizations</strong> automate their operations through custom web applications that save time, reduce manual work, and improve efficiency.</p>
+        <div class="hero-btns"><button class="btn-main">↓ Download CV</button><button class="btn-out" id="view-projects-btn">View Projects →</button></div>
+        <div class="hero-socials"><a class="social-btn" href="mailto:yukeeazriel@gmail.com" title="Email">✉</a><a class="social-btn" href="#" title="GitHub">⌥</a><a class="social-btn" href="" title="LinkedIn">in</a><a class="social-btn" href="tel:+639468167388" title="Phone">✆</a></div>
+      </div>
+<div class="hero-right">
+
+    <div class="avatar-card">
+
+        <div class="avatar-circle">
+            <img src="profile.jpeg"
+                 alt="Azriel Jon Yukee"
+                 class="avatar-img">
+        </div>
+
+        <!-- <h3 class="avatar-name">
+            Azriel Jon Yukee
+        </h3> -->
+
+        <p class="avatar-role">
+            <span>//</span>
+            System Developer
+            <span class="dot">•</span>
+            Freelancer
+        </p>
+
+        <div class="card-divider"></div>
+
+        <div class="avatar-contact">
+            yukeeazriel@gmail.com
+            <br>
+            Bangar, La Union 🇵🇭
+        </div>
+
+    </div>
+
+</div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="sec-eyebrow">Selected work</div>
+    <h2 class="sec-heading">Recent Projects</h2>
+    <p class="sec-sub">Real systems built for real clients and institutions.</p>
+    <div class="proj-grid">
+      <!-- Alumni QR -->
+      <div class="proj-card reveal" data-project="alumni">
+        <div class="proj-thumb"><img src="Alumni-QR-Registration-System.png" alt="Alumni QR Registration System" class="proj-image" /><span class="proj-tag">PHP</span></div>
+        <div class="proj-body"><div class="proj-name">Alumni QR Registration System</div><div class="proj-stack">PHP · MySQL · Bootstrap · QR Code Generation</div></div>
+        <button class="proj-arrow" data-project="alumni">→</button>
+      </div>
+      <!-- Carwash -->
+      <div class="proj-card reveal" data-project="carwash">
+        <div class="proj-thumb"><img src="Carwash-Appointment-System.png" alt="Carwash Appointment System" class="proj-image" /><span class="proj-tag">Laravel</span></div>
+        <div class="proj-body"><div class="proj-name">Carwash Appointment System</div><div class="proj-stack">Laravel · MySQL · Google OAuth</div></div>
+        <button class="proj-arrow" data-project="carwash">→</button>
+      </div>
+      <!-- Document Tracking -->
+      <div class="proj-card reveal" data-project="doc">
+        <div class="proj-thumb"><img src="Document-Tracking-System.png" alt="Document Tracking System" class="proj-image" /><span class="proj-tag">Web</span></div>
+        <div class="proj-body"><div class="proj-name">Document Tracking System</div><div class="proj-stack">PHP · MySQL · JavaScript</div></div>
+        <button class="proj-arrow" data-project="doc">→</button>
+      </div>
+      <!-- ML -->
+      <div class="proj-card reveal" data-project="ml">
+        <div class="proj-thumb"><img src="ML-Experiments.png" alt="ML Experiments" class="proj-image" /><span class="proj-tag">Python</span></div>
+        <div class="proj-body"><div class="proj-name">ML Experiments</div><div class="proj-stack">Python · Machine Learning</div></div>
+        <button class="proj-arrow" data-project="ml">→</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="sec-eyebrow">Tools & Technologies</div>
+    <h2 class="sec-heading">Skills & Services</h2>
+    <div class="skills-layout">
+      <div class="skills-left"><p class="skills-blurb">I keep my stack focused and practical — tools I've used in production, not just tutorials.</p></div>
+      <div class="skills-right">
+        <div><div class="sk-group-title">Languages & Frameworks</div><div class="sk-tags"><span class="sk-tag hi">PHP</span><span class="sk-tag hi">Laravel</span><span class="sk-tag">HTML · CSS</span><span class="sk-tag">JavaScript</span><span class="sk-tag">Python</span><span class="sk-tag">Bootstrap</span></div></div>
+        <div><div class="sk-group-title">Database & Tools</div><div class="sk-tags"><span class="sk-tag hi">MySQL</span><span class="sk-tag">phpMyAdmin</span><span class="sk-tag">SQLite</span><span class="sk-tag">VS Code</span><span class="sk-tag">GitHub</span><span class="sk-tag">Canva · Excel</span></div></div>
+        <div><div class="sk-group-title">Services</div><div class="sk-tags"><span class="sk-tag">Web Development</span><span class="sk-tag">System Development</span><span class="sk-tag">Data Entry</span><span class="sk-tag">SEO</span><span class="sk-tag">Machine Learning</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="sec-eyebrow">Get in touch</div>
+    <div class="contact-split">
+      <div><div class="contact-lede">Let's build something <span class="accent">that works.</span></div><p class="contact-sub">Have a project, a system to build, or just want to say hi? I reply fast and I mean it.</p><div class="contact-detail"><a class="contact-row" href="mailto:yukeeazriel@gmail.com"><div class="contact-row-icon">✉</div>yukeeazriel@gmail.com</a><a class="contact-row" href="tel:+639468167388"><div class="contact-row-icon">✆</div>+63 946 816 7388</a><a class="contact-row" href="#"><div class="contact-row-icon">⌥</div>github.com/azriel-yukee</a><a class="contact-row" href="#"><div class="contact-row-icon">📍</div>Bangar, La Union, PH</a></div></div>
+    </div>
+  </section>
+
+  <footer><div class="foot-left">© 2026 Azriel Jon Yukee · Bangar, La Union 🇵🇭</div><div class="foot-right">AJ.</div></footer>
+
+  <!-- MODAL OVERLAY -->
+  <div class="modal-overlay" id="projectModal">
+    <div class="modal-container">
+      <button class="modal-close" id="modalCloseBtn">✕</button>
+      <div id="modalContent">
+        <!-- dynamic content -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // ----- project data with screenshot path -----
+      const projectData = {
+        alumni: {
+          title: 'Alumni QR Registration System',
+          description: `The Alumni QR Registration System was developed for the alumni of The Sisters of Mary of Banneux, Inc. to streamline and modernize the event registration, payment verification, and attendance management process. The system provides a complete digital registration experience, eliminating manual paperwork while ensuring a faster, more organized, and secure event check-in.
+
+          Alumni can register either as Graduates or Non-Graduates, with the option to register individually or include up to 19 additional attendees in a single transaction, allowing a maximum of 20 participants per registration. After completing the registration form, users proceed to the payment section where they can choose between GCash or Bank Transfer, upload their payment receipt, and provide the transaction reference number for verification.
+
+          Once the registration is successfully submitted, the system automatically generates a unique QR Code for the registration. This QR code is displayed immediately on the confirmation page and is also sent to the registrant's email together with a registration confirmation message. During the event, the QR code serves as the attendee's digital pass and allows organizers to quickly verify payment status and retrieve the complete list of registered attendees associated with that registration.
+
+          The system also includes an integrated QR Code attendance verification feature. When an administrator scans a participant's QR code, the system displays the complete registration details and provides an option to mark all associated attendees as "Attended," ensuring accurate and efficient attendance tracking.
+
+          On the administrative side, the system provides a comprehensive management dashboard that displays key statistics such as Total Revenue, Total Registered Attendees, Graduate Registrations, and Non-Graduate Registrations. Administrators can access a centralized registration management page to view participant information, manually verify registrations, resend confirmation emails to attendees who did not receive them, and remove invalid or duplicate registrations. Additionally, the system supports exporting all registration records into an Excel spreadsheet, making it easier to generate reports, maintain records, and perform further data analysis. Overall, the system significantly improves the efficiency, accuracy, and convenience of managing alumni event registrations from initial registration through payment verification and final attendance monitoring.`,
+          tech: ['HTML', 'CSS', 'JavaScript', 'Bootstrap', 'PHP', 'MySQL', 'PHPMailer', 'QR Code API', 'PhpSpreadsheet', 'Hostinger'],
+          screenshot: 'Alumni-QR-Registration-System.png'
+        },
+        carwash: {
+          title: 'Carwash Appointment System',
+          description: `Admin Web System – Use
+          The Carwash Appointment System was developed to streamline the management of car wash and vehicle repair service appointments by providing administrators with a centralized platform for handling bookings, services, and user accounts. The system enables staff to efficiently manage daily operations while ensuring that customer appointments are processed in an organized and timely manner.
+
+          Administrators securely access the system through an authenticated login page powered by Firebase Authentication with role-based access control, ensuring that only authorized personnel can access administrative features. Upon successful login, administrators are presented with a comprehensive dashboard that displays real-time summaries, including the total number of appointments categorized by their status (Pending, Accepted, Declined, and Completed), available services, registered users, and administrator accounts.
+
+          The system includes a Service Management module where the main administrator can create, edit, update, and delete service offerings. Each service contains detailed information such as the service name, description, estimated price range, service duration, category (Car Wash or Vehicle Repair), and availability status, allowing customers to view accurate and up-to-date service options.
+
+          A dedicated Appointment Management module enables administrators to monitor all customer bookings in one place. Appointments can be filtered according to their current status, and administrators can open detailed appointment records to review customer information, selected services, preferred schedule, and additional notes before updating the appointment status to Pending, Accepted, Declined, or Completed.
+
+          To support multiple staff members, the system provides a Co-Administrator Management feature that allows the main administrator to create, manage, activate, or deactivate co-admin accounts while maintaining appropriate access permissions. All application data, including appointments, services, and user information, is securely stored and synchronized using Firebase Realtime Database, ensuring real-time updates across the system.
+
+          Overall, the Carwash Appointment System improves operational efficiency by digitizing appointment scheduling, service management, and administrative workflows, providing both administrators and customers with a faster, more reliable, and more convenient service experience.
+
+          Mobile Application – Use
+          The Carwash Appointment Mobile Application was developed to provide customers with a convenient and user-friendly platform for booking car wash and vehicle repair services directly from their smartphones. The application eliminates the need for walk-in scheduling by allowing customers to arrange appointments anytime and anywhere.
+
+          Users can create an account or securely sign in to access the application's features. Once logged in, they can browse the complete list of available services, view detailed descriptions, estimated pricing, service durations, and availability before selecting the service that best fits their needs.
+
+          Customers can easily schedule an appointment by choosing either a Car Wash or Vehicle Repair service, selecting their preferred date and time, and providing the necessary vehicle and contact information. After submitting a booking request, the appointment is forwarded to the administrative system for review.
+
+          The application also allows users to monitor the real-time status of their appointments. Customers receive updates whenever their booking is Pending, Accepted, Declined, or Completed, enabling them to stay informed throughout the entire appointment process. Additionally, users can review their appointment history, making it easy to track previous bookings and services received.
+
+          By integrating seamlessly with the web-based administrative system through Firebase, the mobile application ensures that appointment information is synchronized in real time, providing customers with a fast, reliable, and convenient way to schedule and manage their vehicle service appointments.`,
+          tech: ['HTML', 'CSS', 'JavaScript', 'Bootstrap 5', 'Laravel', 'Hostinger', 'Dart'],
+          screenshot: 'Carwash-Appointment-System.png'
+        },
+        doc: {
+          title: 'Document Tracking System',
+          description: `The Document Tracking System was developed to assist the Local Youth Development Office (LYDO) of the Local Government Unit of La Union in efficiently managing and monitoring the movement of official documents and office equipment. Designed exclusively for internal office use, the system replaces manual record-keeping with a centralized digital platform, improving accuracy, organization, and accountability in daily operations.
+
+          The system records both incoming and outgoing documents. Incoming documents refer to official communications and records received by the LYDO from other government offices, while outgoing documents are those prepared and sent by the LYDO to other departments or agencies. For every transaction, the system logs essential details including the document title or description, the office or person responsible for delivering the document, the recipient, and the corresponding date and time the document was sent or received. This enables office personnel to easily track the status and history of every document handled by the office.
+
+          In addition to document management, the system includes an Equipment Borrowing Management module that monitors the lending and return of office equipment. The system records the equipment borrowed, the borrower’s information, the condition of the equipment before release, the borrowing date, the expected or actual return date, and the condition of the equipment upon return. This feature helps ensure accountability for office assets and provides a complete history of equipment usage.
+
+          Overall, the Document Tracking System streamlines document routing and equipment monitoring within the LYDO office by providing a secure, organized, and reliable record management solution, resulting in improved operational efficiency and easier retrieval of transaction records whenever needed.`,
+          tech: ['HTML', 'CSS', 'JavaScript', 'Bootstrap', 'PHP', 'Local Area Network (LAN) – Internal Deployment'],
+          screenshot: 'Document-Tracking-System.png'
+        },
+        ml: {
+          title: 'ML Experiments',
+          description: `The ML Experiments system was developed to assist the Guidance Office of Ilocos Sur Polytechnic State College – Tagudin Campus in organizing, analyzing, and clustering the ICAT (Institutional College Admission Test) scores of incoming first-year students and transferees. The system is intended for internal guidance office operations only and serves as a centralized platform for managing admission-related student data and generating clustering results for assessment and decision-making purposes.
+
+          The system provides a dashboard overview that displays graphical summaries of student enrollment across academic years, helping administrators monitor trends and compare yearly admission data. Guidance personnel can upload CSV or Excel files containing previous ICAT records, which are automatically stored in the database for future analysis and reporting. A manual entry module is also available for encoding individual student information when bulk uploads are not needed.
+
+          For record management, the system includes a print feature that allows administrators to generate a printable copy of a student's enrollment and assessment information. The core functionality of the system is its clustering module, which processes ICAT scores and displays the corresponding clustering results to help identify student groupings based on academic assessment data.
+
+          In addition, the system offers a Manage Student Records section where administrators can view, edit, and print student information. All modifications are tracked through a logs feature, providing a record of edits and administrative actions for accountability. The system also supports creating new administrator accounts and includes a Download Cleaned Student Dataset feature, enabling authorized users to export processed data for clustering and further analysis.
+
+          Overall, the system streamlines the collection, storage, analysis, and management of ICAT data, making the guidance office's workflow more efficient, organized, and data-driven.`,
+          tech: ['HTML', 'CSS', 'JavaScript', 'Bootstrap', 'Chart.js', 'Laravel', 'Python', 'K-Means Clustering', 'Pandas', 'NumPy', 'Scikit-learn', 'Cpanel'],
+          screenshot: 'ML-Experiments.png'
+        }
+      };
+
+      // ----- DOM refs -----
+      const overlay = document.getElementById('projectModal');
+      const modalContent = document.getElementById('modalContent');
+      const closeBtn = document.getElementById('modalCloseBtn');
+      const arrowBtns = document.querySelectorAll('.proj-arrow');
+
+      // ----- render modal content with screenshot -----
+      function renderModal(projectKey) {
+        const data = projectData[projectKey];
+        if (!data) return;
+        let techHtml = data.tech.map(t => `<span class="modal-tech-item">${t}</span>`).join('');
+        // build screenshot html
+        let screenshotHtml = '';
+        if (data.screenshot) {
+          screenshotHtml = `
+            <div class="modal-section">
+              <div class="modal-section-label">Project Landing Page</div>
+              <div class="modal-screenshot">
+                <img src="${data.screenshot}" alt="${data.title} landing page" />
+              </div>
+            </div>
+          `;
+        }
+        modalContent.innerHTML = `
+          <div class="modal-title">${data.title}</div>
+          <div class="modal-section">
+            <div class="modal-section-label">About</div>
+            <div class="modal-text">${data.description.replace(/\n/g, '<br>')}</div>
+          </div>
+          <div class="modal-section">
+            <div class="modal-section-label">Tech Stack</div>
+            <div class="modal-tech">${techHtml}</div>
+          </div>
+          ${screenshotHtml}
+        `;
+      }
+
+      // ----- open / close -----
+      function openModal(projectKey) {
+        renderModal(projectKey);
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeModal() {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      // ----- event listeners -----
+      arrowBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const project = this.getAttribute('data-project');
+          if (project && projectData[project]) openModal(project);
+        });
+      });
+
+      closeBtn.addEventListener('click', closeModal);
+      overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) closeModal();
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && overlay.classList.contains('active')) closeModal();
+      });
+
+      // ----- reveal observer (preserve) -----
+      const reveals = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      reveals.forEach(reveal => observer.observe(reveal));
+
+      document.getElementById('view-projects-btn')?.addEventListener('click', () => {
+        document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+      });
+
+    })();
+  </script>
+  <style>
+    /* ===========================
+   Avatar Card
+=========================== */
+
+.avatar-card{
+    width:100%;
+    max-width:520px;
+
+    background:rgba(18,18,20,.9);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:30px;
+
+    padding:45px 35px;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+
+    gap:22px;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+/* Optional glowing circle in top-right */
+
+.avatar-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    top:-70px;
+    right:-70px;
+
+    width:220px;
+    height:220px;
+
+    border-radius:50%;
+
+    background:rgba(220,255,0,.07);
+}
+
+
+/* ===========================
+   Profile Picture
+=========================== */
+
+.avatar-circle{
+
+    width:180px;
+    height:180px;
+
+    border-radius:50%;
+
+    border:4px solid var(--accent);
+
+    overflow:hidden;
+
+    flex-shrink:0;
+
+    background:#222;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.avatar-img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+}
+
+
+/* ===========================
+   Name
+=========================== */
+
+.avatar-name{
+
+    font-size:54px;
+    font-weight:700;
+
+    color:#fff;
+
+    margin:0;
+
+    line-height:1.15;
+}
+
+
+/* ===========================
+   Role
+=========================== */
+
+.avatar-role{
+
+    margin:0;
+
+    font-size:18px;
+
+    color:#9d9d9d;
+
+    font-family:'JetBrains Mono', monospace;
+
+    letter-spacing:1px;
+}
+
+.avatar-role span{
+
+    color:var(--accent);
+
+    font-weight:700;
+}
+
+.avatar-role .dot{
+
+    margin:0 10px;
+}
+
+
+/* ===========================
+   Divider
+=========================== */
+
+.card-divider{
+
+    width:100%;
+    height:1px;
+
+    background:rgba(255,255,255,.12);
+
+    margin:8px 0;
+}
+
+
+/* ===========================
+   Contact
+=========================== */
+
+.avatar-contact{
+
+    font-family:'JetBrains Mono', monospace;
+
+    font-size:16px;
+
+    color:#bcbcbc;
+
+    line-height:2;
+}
+
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media(max-width:768px){
+
+    .avatar-card{
+
+        padding:35px 25px;
+    }
+
+    .avatar-circle{
+
+        width:140px;
+        height:140px;
+    }
+
+    .avatar-name{
+
+        font-size:38px;
+    }
+
+    .avatar-role{
+
+        font-size:16px;
+    }
+
+}
+
+@media(max-width:480px){
+
+    .avatar-circle{
+
+        width:110px;
+        height:110px;
+    }
+
+    .avatar-name{
+
+        font-size:28px;
+    }
+
+    .avatar-role{
+
+        font-size:14px;
+    }
+
+    .avatar-contact{
+
+        font-size:13px;
+    }
+
+}
+  </style>
+</body>
+</html>
